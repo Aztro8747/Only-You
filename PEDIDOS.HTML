@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PEDIDOS - Porsche México Replica</title>
+    <link rel="stylesheet" href="PEDIDOS.CSS" />
+</head>
+<body>
+
+    <header>
+        <img src="OY.png" alt="Logo Porsche México Replica" class="logo-img" />
+    </header>
+
+    <main>
+        <section class="pedido-form">
+            <h2>PEDIDOS</h2>
+            <form id="order-form">
+                <div class="form-group">
+                    <label for="item">Prenda o Accesorio:</label>
+                    <input type="text" id="item" name="item" required placeholder="Escribe el nombre del producto">
+                </div>
+
+                <div class="form-group">
+                    <label for="customization">Tipo de Personalización:</label>
+                    <input type="text" id="customization" name="customization" required placeholder="Especifique personalización">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Dirección de Entrega:</label>
+                    <textarea id="address" name="address" required placeholder="Escribe tu dirección"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="payment-method">Método de Pago:</label>
+                    <select id="payment-method" name="payment-method" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="credit-card">Tarjeta de Crédito/Débito</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+
+                <!-- Campo PayPal -->
+                <div class="form-group" id="paypal-account-group" style="display: none;">
+                    <label for="paypal-account">Cuenta PayPal:</label>
+                    <div class="payment-icon-group">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="icon">
+                        <input type="text" id="paypal-account" name="paypal-account" placeholder="Correo de PayPal" />
+                    </div>
+                </div>
+
+                <!-- Modal Tarjeta -->
+                <div id="payment-modal">
+                    <div class="modal-content">
+                        <h3>Información de la tarjeta</h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="icon">
+                        <input type="text" id="card-number" placeholder="Número de tarjeta" required>
+                        <input type="text" id="cvv" placeholder="CVV" required>
+                        <input type="text" id="expiry-date" placeholder="Año de Vencimiento" required>
+                        <button type="button" id="close-payment-modal">Cerrar</button>
+                    </div>
+                </div>
+
+                <button type="submit" id="submit-order">Realizar Pedido</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Only You</p>
+    </footer>
+
+    <script>
+        const methodSelector = document.getElementById('payment-method');
+        const paymentModal = document.getElementById('payment-modal');
+        const paypalGroup = document.getElementById('paypal-account-group');
+
+        methodSelector.addEventListener('change', function () {
+            if (this.value === 'credit-card') {
+                paymentModal.style.display = 'flex';
+                paypalGroup.style.display = 'none';
+            } else if (this.value === 'paypal') {
+                paypalGroup.style.display = 'block';
+                paymentModal.style.display = 'none';
+            } else {
+                paypalGroup.style.display = 'none';
+                paymentModal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('close-payment-modal').addEventListener('click', function () {
+            paymentModal.style.display = 'none';
+            methodSelector.value = '';
+        });
+    </script>
+</body>
+</html>
